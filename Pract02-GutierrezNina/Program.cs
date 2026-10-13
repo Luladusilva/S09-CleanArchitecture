@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
+using Pract02_GutierrezNina.Application.UseCases.Clients;
 using Pract02_GutierrezNina.Models;
 using Pract02_GutierrezNina.Repositories.Implements;
 using Pract02_GutierrezNina.Repositories.Interfaces;
@@ -25,9 +26,17 @@ builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+
+builder.Services.AddScoped<GetAllClientsUseCase>();
+builder.Services.AddScoped<GetClientByIdUseCase>();
+builder.Services.AddScoped<GetClientsByNameUseCase>();
+builder.Services.AddScoped<GetClientsByProductUseCase>();
+builder.Services.AddScoped<GetClientsWithProductCountUseCase>();
+builder.Services.AddScoped<InsertClientUseCase>();
+builder.Services.AddScoped<UpdateClientUseCase>();
+builder.Services.AddScoped<DeleteClientUseCase>();
 
 var app = builder.Build();
 

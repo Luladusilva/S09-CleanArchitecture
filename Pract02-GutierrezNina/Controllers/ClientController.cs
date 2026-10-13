@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Pract02_GutierrezNina.Dtos;
+using Pract02_GutierrezNina.Application.Dtos;
 using Pract02_GutierrezNina.Models;
 using Pract02_GutierrezNina.Services.Interfaces;
 

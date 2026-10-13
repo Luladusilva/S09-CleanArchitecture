@@ -1,9 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Pract02_GutierrezNina.Dtos;
+namespace Pract02_GutierrezNina.Application.Dtos;
 
-public class CreateOrderItemDto
+public class UpdateOrderDetailDto
 {
+    [Range(1, int.MaxValue)]
+    public int OrderId { get; set; }
+
     [Range(1, int.MaxValue)]
     public int ProductId { get; set; }
 

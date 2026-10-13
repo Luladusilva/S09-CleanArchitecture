@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Pract02_GutierrezNina.Dtos;
+namespace Pract02_GutierrezNina.Application.Dtos;
 
 public class CreateClientDto
 {

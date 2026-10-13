@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Pract02_GutierrezNina.Dtos;
+using Pract02_GutierrezNina.Application.Dtos;
+using Pract02_GutierrezNina.Application.UseCases.Products;
 using Pract02_GutierrezNina.Models;
-using Pract02_GutierrezNina.Services.Interfaces;
 
 namespace Pract02_GutierrezNina.Controllers;
 
@@ -9,60 +9,62 @@ namespace Pract02_GutierrezNina.Controllers;
 [Route("api/[controller]")]
 public class ProductController : ControllerBase
 {
-    private readonly IProductService _service;
-
-    public ProductController(IProductService service) => _service = service;
-
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> GetAll() =>
-        Ok(await _service.GetAllAsync());
+    public async Task<ActionResult<List<Product>>> GetAll([FromServices] GetAllProductsUseCase useCase) =>
+        Ok(await useCase.ExecuteAsync());
 
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<Product>> GetById(int id)
+    public async Task<ActionResult<Product>> GetById(int id, [FromServices] GetProductByIdUseCase useCase)
     {
-        var product = await _service.GetByIdAsync(id);
+        var product = await useCase.ExecuteAsync(id);
         return product is null ? NotFound() : Ok(product);
     }
 
     [HttpGet("price-greater-than")]
-    public async Task<ActionResult<List<Product>>> GetByMinimumPrice([FromQuery] decimal value = 20) =>
-        Ok(await _service.GetByMinimumPriceAsync(value));
+    public async Task<ActionResult<List<Product>>> GetByMinimumPrice(
+        [FromServices] GetProductsByMinimumPriceUseCase useCase, [FromQuery] decimal value = 20) =>
+        Ok(await useCase.ExecuteAsync(value));
 
     [HttpGet("most-expensive")]
-    public async Task<ActionResult<Product>> GetMostExpensive()
+    public async Task<ActionResult<Product>> GetMostExpensive([FromServices] GetMostExpensiveProductUseCase useCase)
     {
-        var product = await _service.GetMostExpensiveAsync();
+        var product = await useCase.ExecuteAsync();
         return product is null ? NotFound() : Ok(product);
     }
 
     [HttpGet("average-price")]
-    public async Task<ActionResult<decimal?>> GetAveragePrice() =>
-        Ok(await _service.GetAveragePriceAsync());
+    public async Task<ActionResult<decimal?>> GetAveragePrice([FromServices] GetAverageProductPriceUseCase useCase) =>
+        Ok(await useCase.ExecuteAsync());
 
     [HttpGet("without-description")]
-    public async Task<ActionResult<List<Product>>> GetWithoutDescription() =>
-        Ok(await _service.GetWithoutDescriptionAsync());
+    public async Task<ActionResult<List<Product>>> GetWithoutDescription(
+        [FromServices] GetProductsWithoutDescriptionUseCase useCase) =>
+        Ok(await useCase.ExecuteAsync());
 
     [HttpGet("by-order/{orderId:int}")]
-    public async Task<ActionResult<List<Product>>> GetByOrder(int orderId) =>
-        Ok(await _service.GetByOrderAsync(orderId));
+    public async Task<ActionResult<List<Product>>> GetByOrder(int orderId,
+        [FromServices] GetProductsByOrderUseCase useCase) =>
+        Ok(await useCase.ExecuteAsync(orderId));
 
     [HttpGet("sold-to-client/{clientId:int}")]
-    public async Task<ActionResult<List<Product>>> GetSoldToClient(int clientId) =>
-        Ok(await _service.GetSoldToClientAsync(clientId));
+    public async Task<ActionResult<List<Product>>> GetSoldToClient(int clientId,
+        [FromServices] GetProductsSoldToClientUseCase useCase) =>
+        Ok(await useCase.ExecuteAsync(clientId));
 
     [HttpPost]
-    public async Task<ActionResult<Product>> Create(CreateProductDto product)
+    public async Task<ActionResult<Product>> Create(CreateProductDto product,
+        [FromServices] InsertProductUseCase useCase)
     {
-        var created = await _service.InsertAsync(product);
+        var created = await useCase.ExecuteAsync(product);
         return CreatedAtAction(nameof(GetById), new { id = created.ProductId }, created);
     }
 
     [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(int id, UpdateProductDto product) =>
-        await _service.UpdateAsync(id, product) ? NoContent() : NotFound();
+    public async Task<IActionResult> Update(int id, UpdateProductDto product,
+        [FromServices] UpdateProductUseCase useCase) =>
+        await useCase.ExecuteAsync(id, product) ? NoContent() : NotFound();
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id) =>
-        await _service.DeleteAsync(id) ? NoContent() : NotFound();
+    public async Task<IActionResult> Delete(int id, [FromServices] DeleteProductUseCase useCase) =>
+        await useCase.ExecuteAsync(id) ? NoContent() : NotFound();
 }

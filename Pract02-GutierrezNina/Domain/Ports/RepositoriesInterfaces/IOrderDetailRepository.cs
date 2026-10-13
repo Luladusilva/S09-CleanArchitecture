@@ -1,6 +1,6 @@
 ﻿namespace Pract02_GutierrezNina.Repositories.Interfaces;
 
-using Pract02_GutierrezNina.Dtos;
+using Pract02_GutierrezNina.Application.Dtos;
 using Pract02_GutierrezNina.Models;
 
 public interface IOrderDetailRepository : IRepository<OrderDetail>

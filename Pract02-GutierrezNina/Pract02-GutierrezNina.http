@@ -1,0 +1,49 @@
+@Pract02_GutierrezNina_HostAddress = http://localhost:5086
+
+### Clientes cuyo nombre comienza con Juan
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Client/search?name=Juan
+Accept: application/json
+
+### Productos con precio mayor que 20
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Product/price-greater-than?value=20
+Accept: application/json
+
+### Productos incluidos en la orden 1
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Product/by-order/1
+Accept: application/json
+
+### Cantidad total de productos en la orden 1
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Order/1/total-quantity
+Accept: application/json
+
+### Producto de mayor precio
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Product/most-expensive
+Accept: application/json
+
+### Pedidos posteriores al 1 de mayo de 2025
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Order/after-date?date=2025-05-01
+Accept: application/json
+
+### Precio promedio de los productos
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Product/average-price
+Accept: application/json
+
+### Productos sin descripción
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Product/without-description
+Accept: application/json
+
+### Cliente con más pedidos
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Order/client-with-most-orders
+Accept: application/json
+
+### Pedidos con nombre de producto y cantidad por línea
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Order/products
+Accept: application/json
+
+### Productos vendidos al cliente 1
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Product/sold-to-client/1
+Accept: application/json
+
+### Clientes que compraron el producto 2
+GET {{Pract02_GutierrezNina_HostAddress}}/api/Client/by-product/2
+Accept: application/json

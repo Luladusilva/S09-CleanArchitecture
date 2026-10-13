@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Pract02_GutierrezNina.Application.UseCases.Clients;
+using Pract02_GutierrezNina.Application.UseCases.OrderDetails;
 using Pract02_GutierrezNina.Application.UseCases.Orders;
 using Pract02_GutierrezNina.Models;
 using Pract02_GutierrezNina.Repositories.Implements;
@@ -27,7 +28,6 @@ builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 
 builder.Services.AddScoped<GetAllClientsUseCase>();
 builder.Services.AddScoped<GetClientByIdUseCase>();
@@ -49,6 +49,14 @@ builder.Services.AddScoped<GetSalesByClientUseCase>();
 builder.Services.AddScoped<InsertOrderUseCase>();
 builder.Services.AddScoped<UpdateOrderUseCase>();
 builder.Services.AddScoped<DeleteOrderUseCase>();
+
+builder.Services.AddScoped<GetAllOrderDetailsUseCase>();
+builder.Services.AddScoped<GetOrderDetailByIdUseCase>();
+builder.Services.AddScoped<GetOrderDetailsByOrderUseCase>();
+builder.Services.AddScoped<GetOrderWithDetailsUseCase>();
+builder.Services.AddScoped<InsertOrderDetailUseCase>();
+builder.Services.AddScoped<UpdateOrderDetailUseCase>();
+builder.Services.AddScoped<DeleteOrderDetailUseCase>();
 
 var app = builder.Build();
 

@@ -3,11 +3,10 @@ using Microsoft.EntityFrameworkCore;
 using Pract02_GutierrezNina.Application.UseCases.Clients;
 using Pract02_GutierrezNina.Application.UseCases.OrderDetails;
 using Pract02_GutierrezNina.Application.UseCases.Orders;
+using Pract02_GutierrezNina.Application.UseCases.Products;
 using Pract02_GutierrezNina.Models;
 using Pract02_GutierrezNina.Repositories.Implements;
 using Pract02_GutierrezNina.Repositories.Interfaces;
-using Pract02_GutierrezNina.Services.Implements;
-using Pract02_GutierrezNina.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Db")
@@ -26,8 +25,6 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IClientRepository, ClientRepository>();
 builder.Services.AddScoped<IOrderDetailRepository, OrderDetailRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
-builder.Services.AddScoped<IProductService, ProductService>();
 
 builder.Services.AddScoped<GetAllClientsUseCase>();
 builder.Services.AddScoped<GetClientByIdUseCase>();
@@ -57,6 +54,18 @@ builder.Services.AddScoped<GetOrderWithDetailsUseCase>();
 builder.Services.AddScoped<InsertOrderDetailUseCase>();
 builder.Services.AddScoped<UpdateOrderDetailUseCase>();
 builder.Services.AddScoped<DeleteOrderDetailUseCase>();
+
+builder.Services.AddScoped<GetAllProductsUseCase>();
+builder.Services.AddScoped<GetProductByIdUseCase>();
+builder.Services.AddScoped<GetProductsByMinimumPriceUseCase>();
+builder.Services.AddScoped<GetMostExpensiveProductUseCase>();
+builder.Services.AddScoped<GetAverageProductPriceUseCase>();
+builder.Services.AddScoped<GetProductsWithoutDescriptionUseCase>();
+builder.Services.AddScoped<GetProductsByOrderUseCase>();
+builder.Services.AddScoped<GetProductsSoldToClientUseCase>();
+builder.Services.AddScoped<InsertProductUseCase>();
+builder.Services.AddScoped<UpdateProductUseCase>();
+builder.Services.AddScoped<DeleteProductUseCase>();
 
 var app = builder.Build();
 
